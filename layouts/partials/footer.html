@@ -4,21 +4,27 @@
 
 <script src="{{ .Site.BaseURL }}js/bootstrap.min.js"></script> <!-- Other javascript -->
 
+<script src="{{ .Site.BaseURL }}js/tabs.js"></script> <!-- Other javascript -->
+
 <!-- Plugin: search -->
-<script type="text/javascript" src="{{"plugins/lunr.min.js" | relURL}}"></script>
-<script type="text/javascript" src="{{"plugins/auto-complete.js" | relURL}}"></script>
-<link href="{{"plugins/auto-complete.css" | relURL}}" rel="stylesheet">
+<script type="text/javascript" src='{{ "plugins/lunr.min.js" | relURL}}'></script>
+<script type="text/javascript" src='{{ "plugins/auto-complete.js" | relURL}}'></script>
+<link href='{{ "plugins/auto-complete.css" | relURL}}' rel="stylesheet" />
+
+{{ if .Site.IsMultiLingual }}
 <script type="text/javascript">
-  {{ if .Site.IsMultiLingual }}
-      var baseurl = "{{.Site.BaseURL}}{{.Site.LanguagePrefix}}";
-  {{ else }}
-      var baseurl = "{{.Site.BaseURL}}";
-  {{ end }}
+  var baseurl = "{{.Site.BaseURL}}{{.Site.LanguagePrefix}}";
 </script>
-<script type="text/javascript" src="{{"plugins/search.js" | relURL}}"></script>
+{{ else }}
+<script type="text/javascript">
+  var baseurl = "{{.Site.BaseURL}}";
+</script>
+{{ end }}
+
+<script type="text/javascript" src='{{ "plugins/search.js" | relURL}}'></script>
 
 <!-- Plugin: clipboard -->
-<script type="text/javascript" src="{{"plugins/clipboard.js" | relURL}}"></script>
+<script type="text/javascript" src='{{ "plugins/clipboard.js" | relURL}}'></script>
 <script>
   new ClipboardJS('.btn');
 </script>

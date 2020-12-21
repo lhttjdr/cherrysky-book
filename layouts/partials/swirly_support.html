@@ -1,0 +1,16 @@
+<script src="{{"js/swirly.min.js" | relURL}}" defer></script>
+<script>
+    function ready(fn) {
+        if (document.readyState != 'loading'){
+          fn();
+        } else {
+          document.addEventListener('DOMContentLoaded', fn);
+        }
+    }
+    ready(()=> Array.from(document.querySelectorAll(".swirly")).forEach((container, i, a) => {
+        const swirly = new Swirly();
+        const spec = swirly.parse(container.innerText);
+        const diagram = swirly.render(spec);
+        swirly.drawSVG(container, diagram);
+    }));
+</script>

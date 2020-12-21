@@ -1,0 +1,145 @@
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.15.0/flowchart.min.js"></script>
+
+<script>
+    const base = {
+        'x': 0,
+        'y': 0,
+        'line-width': 2,
+        'line-length': 50,
+        'text-margin': 10,
+        'font-size': 14,
+        'font-color': '#8DA1AC',
+        'line-color': '#8DA1AC',
+        'element-color': 'black',
+        'fill': 'white',
+        'yes-text': 'yes',
+        'no-text': 'no',
+        'arrow-end': 'block',
+        'scale': 1
+    };
+
+    const ant = Object.assign({}, base, {
+        // style symbol types
+        'symbols': {
+          start: {
+            'class': 'start-element',
+            'font-color': 'white',
+            'fill': '#595959',
+            'line-width': '0px'
+          },
+          end: {
+            'class': 'end-element',
+            'font-color': 'white',
+            'fill': '#595959',
+            'line-width': '0px'
+          },
+          operation: {
+            'class': 'operation-element',
+            'font-color': 'white',
+            'fill': '#1890ff',
+            'line-width': '0px'
+          },
+          inputoutput: {
+            'class': 'inputoutput-element',
+            'font-color': 'white',
+            'fill': '#1890ff',
+            'line-width': '0px'
+          },
+          subroutine: {
+            'class': 'subroutine-element',
+            'font-color': 'white',
+            'fill': '#FF485E',
+            'element-color': '#fff',
+            'line-color': 'red'
+          },
+          condition: {
+            'class': 'condition-element',
+            'font-color': 'white',
+            'fill': '#FF485E',
+            'line-width': '0px'
+          },
+          parallel: {
+            'class': 'parallel-element',
+            'font-color': 'white',
+            'fill': '#1890ff',
+            'line-width': '0px'
+          }
+        }
+      });
+
+    const vue = Object.assign({}, base, {
+        // style symbol types
+        'symbols': {
+          start: {
+            'class': 'start-element',
+            'font-color': 'white',
+            'fill': '#2F495F',
+            'line-width': '0px'
+          },
+          end: {
+            'class': 'end-element',
+            'font-color': 'white',
+            'fill': '#2F495F',
+            'line-width': '0px'
+          },
+          operation: {
+            'class': 'operation-element',
+            'font-color': 'white',
+            'fill': '#00BC7D',
+            'line-width': '0px'
+          },
+          inputoutput: {
+            'class': 'inputoutput-element',
+            'font-color': 'white',
+            'fill': '#EB4D5D',
+            'line-width': '0px'
+          },
+          subroutine: {
+            'class': 'subroutine-element',
+            'font-color': 'white',
+            'fill': '#937AC4',
+            'element-color': '#fff',
+            'line-color': 'red'
+          },
+          condition: {
+            'class': 'condition-element',
+            'font-color': 'white',
+            'fill': '#FFB500',
+            'line-width': '0px'
+          },
+          parallel: {
+            'class': 'parallel-element',
+            'font-color': 'white',
+            'fill': '#2F495F',
+            'line-width': '0px'
+          }
+        }
+    });
+
+    function ready(fn) {
+        if (document.readyState != 'loading'){
+          fn();
+        } else {
+          document.addEventListener('DOMContentLoaded', fn);
+        }
+    }
+    ready(()=> Array.from(document.querySelectorAll(".flowchart-js")).forEach((chart, i, a) => {
+        const diagram = flowchart.parse(chart.innerText);
+        chart.innerHTML = '';
+        if (chart.dataset.theme) {
+            switch(chart.dataset.theme) {
+                case "ant":
+                    diagram.drawSVG(chart, ant);
+                    break;
+                case "vue":
+                    diagram.drawSVG(chart, vue);
+                    break;
+                default:
+                    diagram.drawSVG(chart);
+            }
+        } else {
+            diagram.drawSVG(chart);
+        }
+    }));
+</script>

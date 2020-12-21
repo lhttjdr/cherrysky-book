@@ -7,7 +7,8 @@
 
 
     {{ range .AlternativeOutputFormats -}}
-        {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ printf `
+    <link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
     <link rel="canonical" href="{{ .Permalink }}">
 
@@ -18,24 +19,60 @@
     </title>
 
     <!-- Load stylesheet -->
+    {{ $prismcss := resources.Get "css/prism-tomorrownight.css" | resources.Minify }}
+    {{- if (eq (getenv "HUGO_ENV") "production") -}}
+    {{ $prismcss = $prismcss | fingerprint "md5" }}
+    {{ end }}
+    <link rel="stylesheet" href="{{ $prismcss.RelPermalink }}">
+
     <link href="{{ .Site.BaseURL }}css/fontawesome.min.css" rel="stylesheet">
+    <link href="{{ .Site.BaseURL }}css/tabs.css" rel="stylesheet">
 
     {{ $style := resources.Get "css/ace.scss" | toCSS | minify }}
     <link rel="stylesheet" href="{{ $style.Permalink }}">
 
     {{ range .Site.Params.custom_css }}
-      <link rel="stylesheet" href="{{ $.Site.BaseURL }}{{ . }}">
+    <link rel="stylesheet" href="{{ $.Site.BaseURL }}{{ . }}">
     {{ end }}
 
     <!-- Only include the tracking when using `hugo` or adding `--environment production` -->
     {{ if eq hugo.Environment "production" }}
-        {{ template "_internal/google_analytics_async.html" . }}
+    {{ template "_internal/google_analytics_async.html" . }}
     {{ end }}
 
-        <!-- MathJax -->
-	{{ if .Params.mathjax }}
-        {{ partial "mathjax_support.html" . }}
+    <!-- MathJax -->
+    {{ if .Params.mathjax }}
+    {{ partial "mathjax_support.html" . }}
+    {{ end }}
+
+    <!-- Prismjs -->
+    {{ $prismjs := resources.Get "js/prism-tomorrownight.js" | resources.Minify }}
+    {{- if (eq (getenv "HUGO_ENV") "production") -}}
+    {{ $prismjs = $prismjs | fingerprint "md5" }}
+    {{ end }}
+    <script src="{{ $prismjs.RelPermalink }}"></script>
+
+    <!--Mermaid-->
+    {{ if .Params.mermaid }}
+    {{ partial "mermaid_support.html" . }}
+    {{ end }}
+
+    <!--flowchart-->
+    {{ if .Params.flowchart }}
+    {{ partial "flowchart_support.html" . }}
+    {{ end }}
+
+    <!--pseudocode-->
+    {{ if .Params.pseudocode }}
+    {{ if not .Params.mathjax }}
+    {{ partial "mathjax_support.html" . }}
+    {{ end }}
+    {{ partial "pseudocode_support.html" . }}
     {{ end }}
 
 
+    <!--swirly-->
+    {{ if .Params.swirly }}
+    {{ partial "swirly_support.html" . }}
+    {{ end }}
 </head>
