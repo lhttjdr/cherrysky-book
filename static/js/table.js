@@ -36,11 +36,11 @@ for (let i = 0; i < TRs.length; i +=1) {
     const THTDs = TRs[i].children;
     for (let j = 0; j < THTDs.length; j +=1) {
         const target = THTDs[j];
-        if (target.innerHTML.match(/<!-- (col|row)(\d+) -->/)) {
+        if (target.textContent.match(/<!-- (col|row)(\d+) -->/)) {
             target[`${RegExp.$1}Span`] = parseInt(RegExp.$2, 10);
         }
         console.log(target.innerText);
-        if (target.innerText.trim() == "..." || target.innerText.trim() == "…") {
+        if (target.textContent.trim() == "..." || target.textContent.trim() == "…" || target.textContent.trim() == "&mldr;") {
             console.log("delete")
             target.parentNode.removeChild(target);
             j -= 1;
