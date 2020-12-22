@@ -26,7 +26,6 @@
     <link rel="stylesheet" href="{{ $prismcss.RelPermalink }}">
 
     <link href="{{ .Site.BaseURL }}css/fontawesome.min.css" rel="stylesheet">
-    <link href="{{ .Site.BaseURL }}css/tabs.css" rel="stylesheet">
 
     {{ $style := resources.Get "css/ace.scss" | toCSS | minify }}
     <link rel="stylesheet" href="{{ $style.Permalink }}">
@@ -75,4 +74,8 @@
     {{ if .Params.swirly }}
     {{ partial "swirly_support.html" . }}
     {{ end }}
+
+    {{- if .Params.plotly }}
+    {{ partial "plotly_support.html" . }}
+    {{- end }}
 </head>
