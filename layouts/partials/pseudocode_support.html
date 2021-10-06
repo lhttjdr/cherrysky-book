@@ -11,6 +11,11 @@
         }
     }
     ready(()=> Array.from(document.querySelectorAll(".pseudocode")).forEach((code, i, a) => {
-        pseudocode.renderElement(code);
+      const timer =   setInterval(() => {
+        if(typeof MathJax != undefined) {
+          pseudocode.renderElement(code);
+          clearInterval(timer);
+        }
+      }, 1000);
     }));
 </script>

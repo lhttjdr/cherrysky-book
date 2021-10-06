@@ -12,5 +12,9 @@
         const spec = swirly.parse(container.innerText);
         const diagram = swirly.render(spec);
         swirly.drawSVG(container, diagram);
+        Array.from(document.querySelectorAll("div.swirly svg")).forEach((svg, i, a) => {
+          svg.width = "100%";
+          svg.height = "auto";
+        });
     }));
 </script>
