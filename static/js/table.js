@@ -1,4 +1,4 @@
-/* vh2hv */
+/* vh2hv (=transpose) */
 Array.prototype.forEach.call(
     document.querySelectorAll('.vh2hv'),
     elm => {
