@@ -21,12 +21,11 @@
 
           svg.querySelectorAll("text").forEach(text => {
             const foreign = document.createElementNS('http://www.w3.org/2000/svg',"foreignObject");
-            const parent = text.parentElement;
+            const parent = text.parentNode;
             const pbbox = parent.getBBox();
             const bbox = text.getBBox();
             foreign.setAttribute('width', bbox.width);
             foreign.setAttribute('height', bbox.height);
-            foreign.setAttribute('dominant-baseline', 'middle');
             const x = (pbbox.width - bbox.width)/2;
             const y = pbbox.height /2;
             foreign.setAttribute('x', x);
@@ -35,7 +34,7 @@
             const div = document.createElementNS('http://www.w3.org/1999/xhtml', 'div');
             div.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
             div.innerText = text.innerHTML;
-            div.setAttribute("style", `width:100%; margin:0 auto; text-align:center;`);
+            div.setAttribute("style", `width:100%; margin:0; padding:0; text-align:center; line-height:normal; vertical-align:middle;`);
             foreign.appendChild(div);
             text.replaceWith(foreign);
             MathJax.Hub.Queue(['Typeset', MathJax.Hub, div]);
