@@ -26,8 +26,9 @@
             const bbox = text.getBBox();
             foreign.setAttribute('width', bbox.width);
             foreign.setAttribute('height', bbox.height);
+            foreign.setAttribute('dominant-baseline', 'middle');
             const x = (pbbox.width - bbox.width)/2;
-            const y = (pbbox.height - bbox.height) /2;
+            const y = pbbox.height /2;
             foreign.setAttribute('x', x);
             foreign.setAttribute('y', y);
             foreign.setAttribute('viewBox', `${x} ${y} ${bbox.width} ${bbox.height}`);
